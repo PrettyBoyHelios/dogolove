@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+.idea/dogolove.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
