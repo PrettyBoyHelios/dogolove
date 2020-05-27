@@ -36,32 +36,34 @@
                 <img src="img/love.svg">
             </div>
             <div class="login-content">
-                <form action="index.html">
-                    <img src="img/dog.svg">
-                    <h2 class="title">Welcome</h2>
-                    <div class="input-div one">
-                          <div class="i">
-                                  <i class="fas fa-user"></i>
-                          </div>
-                          <div class="div">
-                                  <h5>e-mail</h5>
-                                  <input type="email" class="input">
-                          </div>
-                       </div>
-                       <div class="input-div pass">
-                          <div class="i"> 
-                               <i class="fas fa-lock"></i>
-                          </div>
-                          <div class="div">
-                               <h5>password</h5>
-                               <input type="password" class="input">
-                       </div>
+          <!------------ FORM ------------>              
+          <form method="post">
+              <img src="img/dog.svg">
+              <h2 class="title">Welcome</h2>
+              <div class="input-div one">
+                  <div class="i">
+                    <i class="fas fa-user"></i>
+                  </div>
+                  <div class="div">
+                    <h5>e-mail</h5>
+                      <input type="text" name="userInput" class="input">
                     </div>
-                    <a href="#">Register</a>
-                    <a href="#">Forgot Password?</a>
-                    <!-- <input type="submit" class="btn" value="Login"> -->
-                    <button type="submit" id="submitID" name="submitBtn" class="btn">Login</button>
-                </form>
+              </div>
+              <div class="input-div pass">
+                <div class="i"> 
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="div">
+                  <h5>password</h5>
+                  <input type="password" name="passInput" class="input">
+                </div>
+              </div>
+              <a href="#">Register</a>
+              <a href="#">Forgot Password?</a>
+              <!-- <input type="submit" class="btn" value="Login"> -->
+              <button type="submit" id="submitID" name="submitBtn" class="btn">Login</button>
+          </form>
+          <!------------ FORM ------------>              
             </div>
         </div>
         <script type="text/javascript" src="js/main.js"></script>
@@ -76,7 +78,7 @@
       $Servername = "localhost";
       $Username = "root";
       $Password = "";
-      $DBName = "admindb";
+      $DBName = "dogolovetest";
       $conn = mysqli_connect($Servername,$Username,$Password,$DBName);
 
       if(!$conn)
@@ -89,20 +91,20 @@
         
         $result = $conn->query($sql);
         if($result && $result->num_rows == 1) {
-          while ($row = mysqli_fetch_assoc($result)) {
-            $idT = $row['id'];
-            $sql2 = "SELECT managers.userID as id FROM managers where managers.userID = '$idT'";
-            $result2 = $conn->query($sql2);
+          // while ($row = mysqli_fetch_assoc($result)) {
+          //   // $idT = $row['id'];
+          //   // $sql2 = "SELECT managers.userID as id FROM managers where managers.userID = '$idT'";
+          //   // $result2 = $conn->query($sql2);
             
-            session_start();
-            if($result2 && $result2->num_rows > 0) {
-            $_SESSION['role'] = 'manager';
-            }
-            else{
-              $_SESSION['role'] = 'seller';
-            }
-          }
-          header("Location: salesadmin.php");
+          //   session_start();
+          //   // if($result2 && $result2->num_rows > 0) {
+          //   // $_SESSION['role'] = 'manager';
+          //   // }
+          //   // else{
+          //   //   $_SESSION['role'] = 'seller';
+          //   // }
+          // }
+          header("Location: home.php");
         }
         else {
           echo "User not found";
