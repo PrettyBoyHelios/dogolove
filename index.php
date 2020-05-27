@@ -59,7 +59,8 @@
                     </div>
                     <a href="#">Register</a>
                     <a href="#">Forgot Password?</a>
-                    <input type="submit" class="btn" value="Login">
+                    <!-- <input type="submit" class="btn" value="Login"> -->
+                    <button type="submit" id="submitID" name="submitBtn" class="btn">Login</button>
                 </form>
             </div>
         </div>
@@ -67,5 +68,48 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+        <!-- php -->
+
+  <?php
+    if(isset($_POST['submitBtn'])){
+      $Servername = "localhost";
+      $Username = "root";
+      $Password = "";
+      $DBName = "admindb";
+      $conn = mysqli_connect($Servername,$Username,$Password,$DBName);
+
+      if(!$conn)
+      {
+          die("Connection failed:". mysqli_connect_error());
+      }
+      
+
+        $sql = "SELECT * FROM users WHERE user = '" . $_POST['userInput'] . "' AND pass = '" . $_POST['passInput']."'";
+        
+        $result = $conn->query($sql);
+        if($result && $result->num_rows == 1) {
+          while ($row = mysqli_fetch_assoc($result)) {
+            $idT = $row['id'];
+            $sql2 = "SELECT managers.userID as id FROM managers where managers.userID = '$idT'";
+            $result2 = $conn->query($sql2);
+            
+            session_start();
+            if($result2 && $result2->num_rows > 0) {
+            $_SESSION['role'] = 'manager';
+            }
+            else{
+              $_SESSION['role'] = 'seller';
+            }
+          }
+          header("Location: salesadmin.php");
+        }
+        else {
+          echo "User not found";
+        }
+        $conn->close();
+    }
+  ?>
+        <!-- php final -->
     </body>
 </html>
