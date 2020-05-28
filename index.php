@@ -28,7 +28,7 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="pricing.html">Pricing</a>
@@ -105,6 +105,7 @@ if(isset($_POST['submitBtn'])){
 
 
   $sql = "SELECT * FROM users WHERE user = '" . $_POST['userInput'] . "' AND pass = '" . $_POST['passInput']."'";
+  print_r($sql);
 
   $result = $conn->query($sql);
   if($result && $result->num_rows == 1) {
