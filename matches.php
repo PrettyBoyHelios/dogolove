@@ -41,7 +41,7 @@
         <div class="card-body">
             <h5 class="card-title">Diane & Mr. Peanutbutter want to meet you!</h5>
             <p class="card-text">Star of Mr peanutbutter's House and best buds with @BoJackHorseman</p>
-            <a type="button" class="btn btn-success" style="background-color: darkgreen" href="https://wa.me/524448568081"><i class="fab fa-whatsapp"></i> Contact</a>
+            <a type="button" class="btn" style="background-color: darkgreen" href="https://wa.me/524448568081"><i class="fab fa-whatsapp"></i> Contact</a>
         </div>
     </div>
 </div>

@@ -44,7 +44,7 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="div">
-                        <h5>e-mail</h5>
+                        <h5>username</h5>
                         <input type="text" name="userInput" class="input">
                     </div>
                 </div>
