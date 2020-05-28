@@ -72,7 +72,7 @@
                     </div>
                     <div class="div">
                         <h5>my last name</h5>
-                        <input type="text" name="nameInput" class="input">
+                        <input type="text" name="lnameInput" class="input">
                     </div>
                 </div>
                 <div class="input-div">
@@ -81,7 +81,7 @@
                     </div>
                     <div class="div">
                         <h5>phone number</h5>
-                        <input type="text" name="nameInput" class="input">
+                        <input type="text" name="phoneInput" class="input">
                     </div>
                 </div>
                 <div class="upload-btn-wrapper">
@@ -98,11 +98,20 @@
 <!-- php -->
 
 <?php
+    include ("image_handler.php");
     if (isset($_POST['submitBtn'])) {
         $conn = getDb();
         if (!$conn) {
             die("Connection failed:" . mysqli_connect_error());
         }
+        $username = $_POST['userInput'];
+        $name = $_POST['nameInput'];
+        $pass = $_POST['passwordInput'];
+        $lastName = $_POST['lnameInput'];
+        $phone = $_POST['phoneInput'];
+
+        $profile = $_FILES['profileInput'];
+
         $sql = "SELECT * FROM users WHERE user = '" . $_POST['userInput'] . "' AND password = '" . $_POST['passInput'] . "'";
 
         $result = $conn->query($sql);
