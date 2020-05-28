@@ -3,7 +3,7 @@
         echo '
               <div id="headerDiv">
                   <nav class="navbar navbar-expand-lg navbar-light">
-                      <a class="navbar-brand" href="#">LoveDog</a>
+                      <a class="navbar-brand" href="#"><i class="fas fa-paw"></i> LoveDog</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -13,7 +13,7 @@
                                     <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pricing.html">Profile</a>
+                                    <a class="nav-link" href="home.php">Explore</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="logout.php">Log out</a>
