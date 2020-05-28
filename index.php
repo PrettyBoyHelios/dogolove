@@ -30,7 +30,7 @@
 
 <div id="containerDiv">
     <img class="heart" src="img/heart2.svg">
-    <div class="container">
+    <div class="sp-container">
         <div class="img">
             <img src="img/love.svg">
         </div>
@@ -79,11 +79,32 @@
         $conn->close();
         if ($result && $result->num_rows == 1) {
             session_start();
-            $_SESSION['userId'] = 1;
+            $row = mysqli_fetch_assoc($result);
+            print_r($row);
+            $_SESSION['userId'] = $row['idusers'];
+            $_SESSION['name'] = $row['name'];
+            $_SESSION['lastName'] = $row['last_name'];
             header("Location: home.php");
         } else {
             debug_to_console("user not found!");
             echo "User not found";
+        }
+
+        $query = mysqli_query($conn, "select * from users where Password='$pass' and Username='$user'");
+
+        $rows = mysqli_num_rows($query);
+        if($rows == 1){
+            $row = mysqli_fetch_assoc($query);
+            $_SESSION['user'] = $row['Id'];
+            $_SESSION['name'] = $row['FirstName'];
+            $_SESSION['isAdmin'] = $row['IsAdmin'];
+            $_SESSION['data'] = print_r($row, true);
+            header("Location: index.php"); // Redirecting to other page
+        }
+        else
+        {
+            echo 'not found!';
+            $err = "Username of Password is Invalid";
         }
     }
 ?>
