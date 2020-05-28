@@ -45,7 +45,7 @@
                     </div>
                     <div class="div">
                         <h5>username</h5>
-                        <input type="text" name="userInput" class="input">
+                        <input required type="text" name="userInput" class="input">
                     </div>
                 </div>
                 <div class="input-div pass">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="div">
                         <h5>password</h5>
-                        <input type="password" name="passInput" class="input">
+                        <input required type="password" name="passInput" class="input">
                     </div>
                 </div>
                 <div class="input-div">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="div">
                         <h5>my name</h5>
-                        <input type="text" name="nameInput" class="input">
+                        <input required type="text" name="nameInput" class="input">
                     </div>
                 </div>
                 <div class="input-div">
@@ -72,7 +72,7 @@
                     </div>
                     <div class="div">
                         <h5>my last name</h5>
-                        <input type="text" name="lnameInput" class="input">
+                        <input required type="text" name="lnameInput" class="input">
                     </div>
                 </div>
                 <div class="input-div">
@@ -81,12 +81,12 @@
                     </div>
                     <div class="div">
                         <h5>phone number</h5>
-                        <input type="text" name="phoneInput" class="input">
+                        <input required type="text" name="phoneInput" class="input">
                     </div>
                 </div>
                 <div class="upload-btn-wrapper">
                     <button class="wrapper-btn">add a profile pic</button>
-                    <input type="file" name="profileInput" />
+                    <input required type="file" name="profileInput" />
                 </div>
                 <!-- <input type="submit" class="btn" value="Login"> -->
                 <button type="submit" id="submitID" name="submitBtn" class="btn">Register</button>
@@ -112,18 +112,24 @@
 
         $profile = $_FILES['profileInput'];
 
-        $sql = "SELECT * FROM users WHERE user = '" . $_POST['userInput'] . "' AND password = '" . $_POST['passInput'] . "'";
+        $file_name = uploadImage($profile['name'], $profile['size'], $profile['tmp_name']);
 
-        $result = $conn->query($sql);
-        $conn->close();
-        if ($result && $result->num_rows == 1) {
-            session_start();
-            $_SESSION['userId'] = 1;
-            header("Location: home.php");
-        } else {
-            debug_to_console("user not found!");
-            echo "User not found";
+        if ($file_name != ""){
+            $sql = "SELECT * FROM users WHERE user = '" . $_POST['userInput'] . "' AND password = '" . $_POST['passInput'] . "'";
+
+            $result = $conn->query($sql);
+            $conn->close();
+            if ($result && $result->num_rows == 1) {
+                session_start();
+                $_SESSION['userId'] = 1;
+                header("Location: home.php");
+            } else {
+                debug_to_console("user not found!");
+                echo "User not found";
+            }
         }
+
+
     }
 ?>
 <!-- php final -->
