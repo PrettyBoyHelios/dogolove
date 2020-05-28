@@ -36,15 +36,15 @@
         </div>
         <div class="login-content">
             <!------------ FORM ------------>
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <img src="img/dog.svg" alt="dog">
-                <h2 class="title">Welcome</h2>
+                <p class="subheading">Add your information first,  your friend's will come after.</p>
                 <div class="input-div one">
                     <div class="i">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="div">
-                        <h5>e-mail</h5>
+                        <h5>username</h5>
                         <input type="text" name="userInput" class="input">
                     </div>
                 </div>
@@ -57,9 +57,39 @@
                         <input type="password" name="passInput" class="input">
                     </div>
                 </div>
-                <a href="register.php">Register</a>
+                <div class="input-div">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>my name</h5>
+                        <input type="text" name="nameInput" class="input">
+                    </div>
+                </div>
+                <div class="input-div">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>my last name</h5>
+                        <input type="text" name="nameInput" class="input">
+                    </div>
+                </div>
+                <div class="input-div">
+                    <div class="i">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="div">
+                        <h5>phone number</h5>
+                        <input type="text" name="nameInput" class="input">
+                    </div>
+                </div>
+                <div class="upload-btn-wrapper">
+                    <button class="wrapper-btn">add a profile pic</button>
+                    <input type="file" name="profileInput" />
+                </div>
                 <!-- <input type="submit" class="btn" value="Login"> -->
-                <button type="submit" id="submitID" name="submitBtn" class="btn">Login</button>
+                <button type="submit" id="submitID" name="submitBtn" class="btn">Register</button>
             </form>
             <!------------ FORM ------------>
         </div>
