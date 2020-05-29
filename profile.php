@@ -56,6 +56,7 @@
                     <h5 class="card-subtitle mb-2 text-muted">Owner Info</h5>
                     <p class="card-text"><i class="fab fa-whatsapp"></i> +<?php echo $user->phone?></p>
                     <p class="card-text"><i class="fas fa-user"></i> <?php echo $user->bio?></p>
+                    <a href="bio.php"><button class="btn">Update Bio</button></a>
                 </div>
             </div>
         </div>
