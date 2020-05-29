@@ -39,7 +39,7 @@
         <div class="card" style="width: 100%; border-radius: 20px;">
             <img style="border-radius: 20px 20px 0 0" src="images/<?php echo $user->img?>" class="card-img-top" style="max-height: 50px !important;" alt="...">
             <div class="card-body">
-                <h1 class="card-title"><?php echo $user->dogName . ", born on " . $user->dogBirth ?></h1>
+                <h1 class="card-title"><?php echo $user->dogName . ", " . getDogAge($user) . " y/o" ?></h1>
                 <p class="card-text"><?php echo $user->dogBreed?></p>
             </div>
         </div>
@@ -52,7 +52,7 @@
             <div class="col" style="width: 100px">
                 <img src="images/<?php echo $user->profile?>" alt="..." class="avatar">
                 <div class="card-body">
-                    <h1 class="card-title"><?php echo $user->name . " " . $user->lastName . ", " . getUserAge($user) . " years"?></h1>
+                    <h1 class="card-title"><?php echo $user->name . " " . $user->lastName . ", " . getUserAge($user)?></h1>
                     <h5 class="card-subtitle mb-2 text-muted">Owner Info</h5>
                     <p class="card-text"><i class="fab fa-whatsapp"></i> +<?php echo $user->phone?></p>
                     <p class="card-text"><i class="fas fa-user"></i> <?php echo $user->bio?></p>

@@ -63,14 +63,16 @@
     }
 
     function getUserAge($user){
-        $date1 = date("Y-M-d", strtotime($user->birthDate));
-        $date2 = date("Y-M-d", time());
+        $date1 = strtotime($user->birthDate);
+        $date2 = time();
+        $diff = abs($date2-$date1);
+        return floor($diff / (365*60*60*24));
+    }
 
-        $d1 = DateTime::createFromFormat("Y-M-d", $date1);
-        $d2 = DateTime::createFromFormat("Y-M-d", $date2);
-
-// Formulate the Difference between two dates
-        $diff = abs($d2-$d1);
+    function getDogAge($user){
+        $date1 = strtotime($user->dogBirth);
+        $date2 = time();
+        $diff = abs($date2-$date1);
         return floor($diff / (365*60*60*24));
     }
 
