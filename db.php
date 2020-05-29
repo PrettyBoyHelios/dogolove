@@ -4,8 +4,8 @@ if(isset($_POST['yay'])) {
 } 
 
 function getDb(){
-    // return mysqli_connect("picachosystems.com", "sqldmp", "sqldmp123", "equipo2");
-    return mysqli_connect("localhost", "root", "", "equipo2");
+    return mysqli_connect("picachosystems.com", "sqldmp", "sqldmp123", "equipo2");
+    // return mysqli_connect("localhost", "root", "", "equipo2");
 }
 
 class User
@@ -112,17 +112,53 @@ function getMatches($user){
 function addMatch($idUser, $idOther){
     $conn = getDb();
 
-    $sql = "IF  EXISTS (SELECT * FROM matches WHERE user_id = '$idUser') OR 
-                EXISTS (SELECT * FROM matches WHERE target_id = '$idOther')
-            THEN
-                UPDATE matches SET match_approved = 1 where user_id = '$idUser';
-            ELSE
-                INSERT INTO matches (user_id, target_id, timestamp, match_approved) VALUES ('$idUser', '$idOther', 0);
-            END IF";
+    // $sql = "IF  EXISTS (SELECT * FROM matches WHERE user_id = '$idUser') OR 
+    //             EXISTS (SELECT * FROM matches WHERE target_id = '$idOther')
+    //         THEN
+    //             UPDATE matches SET match_approved = 1 where user_id = '$idUser';
+    //         ELSE
+    //             INSERT INTO matches (user_id, target_id, match_approved) VALUES ('$idUser', '$idOther', 0);
+    //         END IF";
+    $x = "matching".rand(1,100)."";
+    $sql = "
+            create procedure $x()
+              begin
+                if (
+                  exists (
+                    select *
+                    from matches
+                    where user_id = '$idUser'
+                  )
+                  or exists (
+                    select *
+                    from matches
+                    where target_id = '$idOther'
+                  )
+                ) then
+                  update matches
+                  set match_approved = 1
+                  where user_id = '$idUser';
+                else
+                  insert into matches (
+                    user_id,
+                    target_id,
+                    match_approved
+                  )
+                  values (
+                    '$idUser', 
+                    '$idOther', 
+                    0
+                  );
+                end if;
+              end;";
 
-    if (mysqli_query($conn, $sql)) {
-        echo "New match added successfully";
-    } else {
-        echo "Error adding match: " . mysqli_error($conn);
-    }
+    if (mysqli_query($conn, $sql)) {} else {}
+        
+    // $sql = "IF  EXISTS (SELECT * FROM matches WHERE user_id = '$idUser') OR 
+    //             EXISTS (SELECT * FROM matches WHERE target_id = '$idOther')
+    //         THEN
+    //             UPDATE matches SET match_approved = 1 where user_id = '$idUser';
+    //         ELSE
+    //             INSERT INTO matches (user_id, target_id, match_approved) VALUES ('$idUser', '$idOther', 0);
+    //         END IF";
 }
