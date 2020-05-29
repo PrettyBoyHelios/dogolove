@@ -55,13 +55,12 @@
 
     function getOtherProfiles($user){
         $conn = getDb();
-        $sql = "SELECT * FROM users WHERE idusers !=" . $user->id . " and hasDog = 1";
-
+        $sql = "SELECT * FROM users WHERE idusers !='$user->id' and hasDog = 1 ORDER BY RAND() LIMIT 1";
+        //$sql = "SELECT * FROM users WHERE idusers !=" . $user->id . " and hasDog = 1";
+        echo $sql;
         $result = mysqli_query($conn, $sql);
         $data = $result->fetch_array(MYSQLI_ASSOC);
-        $randomUserIndex = array_rand($data);
-        print_r($data[$randomUserIndex]);
-        return new User($data[$randomUserIndex]);
+        return new User($data);
     }
 
     function getUserAge($user){
