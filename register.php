@@ -2,6 +2,7 @@
     include("db.php");
     include("console.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +31,7 @@
 
 <div id="containerDiv">
     <img class="heart" src="img/heart2.svg">
-    <div class="container">
+    <div class="sp-container">
         <div class="img">
             <img src="img/love.svg">
         </div>
@@ -95,7 +96,6 @@
         </div>
     </div>
 </div><!-- end containerDiv -->
-<!-- php -->
 
 <?php
     include ("image_handler.php");
@@ -106,7 +106,7 @@
         }
         $username = $_POST['userInput'];
         $name = $_POST['nameInput'];
-        $pass = $_POST['passwordInput'];
+        $pass = $_POST['passInput'];
         $lastName = $_POST['lnameInput'];
         $phone = $_POST['phoneInput'];
 
@@ -115,24 +115,23 @@
         $file_name = uploadImage($profile['name'], $profile['size'], $profile['tmp_name']);
 
         if ($file_name != ""){
-            $sql = "SELECT * FROM users WHERE user = '" . $_POST['userInput'] . "' AND password = '" . $_POST['passInput'] . "'";
-
+            $sql = "INSERT INTO users(user, password, name, last_name, birth_date, bio, profile_pic, hasDog, dog_name, dog_birth, dog_breed, img) VALUES ('$username','$pass','$name','$lastName','1996-08-22','Demo for bio','$file_name',0,'','1996-08-22','Labrador','')";
             $result = $conn->query($sql);
-            $conn->close();
-            if ($result && $result->num_rows == 1) {
+
+            debug_to_console($result);
+            if ($result == 1) {
+                $last_id = mysqli_insert_id($conn);
                 session_start();
                 $_SESSION['userId'] = 1;
-                header("Location: home.php");
+                header("Location: index.php");
             } else {
                 debug_to_console("user not found!");
                 echo "User not found";
             }
+            $conn->close();
         }
-
-
     }
 ?>
-<!-- php final -->
 
 <!-- Preloader -->
 <div id="preloader">
