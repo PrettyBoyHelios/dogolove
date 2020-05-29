@@ -2,7 +2,43 @@
     include("db.php");
     include("console.php");
 ?>
+<?php
+    include ("image_handler.php");
+    if (isset($_POST['submitBtn'])) {
+        $conn = getDb();
+        if (!$conn) {
+            die("Connection failed:" . mysqli_connect_error());
+        }
+        $username = $_POST['userInput'];
+        $name = $_POST['nameInput'];
+        $pass = $_POST['passInput'];
+        $lastName = $_POST['lnameInput'];
+        $phone = $_POST['phoneInput'];
 
+        $profile = $_FILES['profileInput'];
+
+        $file_name = uploadImage($profile['name'], $profile['size'], $profile['tmp_name']);
+
+        if ($file_name != ""){
+            $sql = "INSERT INTO users(user, password, name, last_name, birth_date, bio, profile_pic, hasDog, dog_name, dog_birth, dog_breed, img, phone) VALUES ('$username','$pass','$name','$lastName','1996-08-22','Demo for bio','$file_name',0,'','1996-08-22','Labrador','', '$phone')";
+            $result = $conn->query($sql);
+            $last_id = $conn->insert_id;
+
+            debug_to_console($result);
+            if ($result == 1) {
+                $last_id = mysqli_insert_id($conn);
+                session_start();
+                $_SESSION['userId'] = $last_id;
+                $_SESSION['name'] = $name;
+                header("Location: home.php");
+            } else {
+                debug_to_console("user not found!");
+                echo "User not found";
+            }
+            $conn->close();
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,48 +126,12 @@
                     <input required type="file" name="profileInput" />
                 </div>
                 <!-- <input type="submit" class="btn" value="Login"> -->
-                <button type="submit" id="submitID" name="submitBtn" class="btn">Register</button>
+                <button type="submit" id="submitID" name="submitBtn" class="btn"><i class="fas fa-paw"></i> Register</button>
             </form>
             <!------------ FORM ------------>
         </div>
     </div>
 </div><!-- end containerDiv -->
-
-<?php
-    include ("image_handler.php");
-    if (isset($_POST['submitBtn'])) {
-        $conn = getDb();
-        if (!$conn) {
-            die("Connection failed:" . mysqli_connect_error());
-        }
-        $username = $_POST['userInput'];
-        $name = $_POST['nameInput'];
-        $pass = $_POST['passInput'];
-        $lastName = $_POST['lnameInput'];
-        $phone = $_POST['phoneInput'];
-
-        $profile = $_FILES['profileInput'];
-
-        $file_name = uploadImage($profile['name'], $profile['size'], $profile['tmp_name']);
-
-        if ($file_name != ""){
-            $sql = "INSERT INTO users(user, password, name, last_name, birth_date, bio, profile_pic, hasDog, dog_name, dog_birth, dog_breed, img, phone) VALUES ('$username','$pass','$name','$lastName','1996-08-22','Demo for bio','$file_name',0,'','1996-08-22','Labrador','', '$phone')";
-            $result = $conn->query($sql);
-
-            debug_to_console($result);
-            if ($result == 1) {
-                $last_id = mysqli_insert_id($conn);
-                session_start();
-                $_SESSION['userId'] = 1;
-                header("Location: index.php");
-            } else {
-                debug_to_console("user not found!");
-                echo "User not found";
-            }
-            $conn->close();
-        }
-    }
-?>
 
 <!-- Preloader -->
 <div id="preloader">

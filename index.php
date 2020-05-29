@@ -33,7 +33,7 @@
             $row = mysqli_fetch_assoc($query);
             $_SESSION['user'] = $row['Id'];
             $_SESSION['name'] = $row['FirstName'];
-            $_SESSION['isAdmin'] = $row['IsAdmin'];
+
             $_SESSION['data'] = print_r($row, true);
             header("Location: index.php"); // Redirecting to other page
         }
@@ -99,7 +99,7 @@
                         <input type="password" name="passInput" class="input">
                     </div>
                 </div>
-                <a href="register.php">Register</a>
+                <a href="register.php"><i class="fas fa-paw"></i> Register</a>
                 <!-- <input type="submit" class="btn" value="Login"> -->
                 <button type="submit" id="submitID" name="submitBtn" class="btn">Login</button>
             </form>
