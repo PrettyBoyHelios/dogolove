@@ -13,6 +13,7 @@
         public $birthDate = '';
         public $bio = '';
         public $profile = '';
+        public $phone = '';
         public $hasDog = false;
         public $dogName = '';
         public $dogBirth = '';
@@ -22,7 +23,8 @@
         public function __construct($data) {
             $this->name = $data['name'];
             $this->lastName = $data['last_name'];
-            $this->username= $data['user'];
+            $this->username = $data['user'];
+            $this->phone = $data['phone'];
             $this->id = $data['idusers'];
             $this->bio = $data['bio'];
             $this->profile = $data['profile_pic'];
@@ -41,7 +43,7 @@
         $result = mysqli_query($conn, $sql);
         $conn->close();
         $data = $result->fetch_assoc();
-        print_r($data);
+        //print_r($data);
         return new User($data);
     }
 
@@ -51,4 +53,24 @@
         echo $sql;
         $result = mysqli_query($conn, $sql);
         $conn->close();
+    }
+
+    function getOtherProfiles($user){
+        $conn = getDb();
+        $sql = "SELECT * FROM users WHERE idusers !=" . $user->id;
+        $result = mysqli_query($conn, $sql);
+        $data = $result->fetch_array(MYSQLI_NUM);
+        return $data;
+    }
+
+    function getUserAge($user){
+        $date1 = date("Y-M-d", strtotime($user->birthDate));
+        $date2 = date("Y-M-d", time());
+
+        $d1 = DateTime::createFromFormat("Y-M-d", $date1);
+        $d2 = DateTime::createFromFormat("Y-M-d", $date2);
+
+// Formulate the Difference between two dates
+        $diff = abs($d2-$d1);
+        return floor($diff / (365*60*60*24));
     }

@@ -26,6 +26,9 @@
     include("menu.php");
 ?>
     <div class="container">
+        <div class="">
+            <?php getOtherProfiles($user);?>
+        </div>
         <div class="row">
             <div class="col">
                 <h2>Hola, <?php echo $_SESSION['name']?>!</h2>
@@ -70,9 +73,6 @@
             </div>
         </div>
     </div>
-
-
-
 
 <?php include ("bottom.php");?>
 </body>
