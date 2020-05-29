@@ -77,6 +77,7 @@
     function getMatches($user){
         $conn = getDb();
         $sql = "SELECT * FROM matches WHERE user_id = '$user->id' OR target_id = '$user->id' ORDER BY timestamp";
+        // fOR CONFIRMED MATCHES// "SELECT * FROM matches WHERE (user_id = 1 OR target_id = 1) AND match_approved = 1 ORDER BY timestamp"
         $result = mysqli_query($conn, $sql);
         return $result->fetch_array(MYSQLI_NUM);
     }
