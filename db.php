@@ -57,7 +57,6 @@
         $conn = getDb();
         $sql = "SELECT * FROM users WHERE idusers !='$user->id' and hasDog = 1 ORDER BY RAND() LIMIT 1";
         //$sql = "SELECT * FROM users WHERE idusers !=" . $user->id . " and hasDog = 1";
-        echo $sql;
         $result = mysqli_query($conn, $sql);
         $data = $result->fetch_array(MYSQLI_ASSOC);
         return new User($data);
