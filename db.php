@@ -44,3 +44,11 @@
         print_r($data);
         return new User($data);
     }
+
+    function updateUserInfo($user){
+        $conn = getDb();
+        $sql = "UPDATE users SET user='$user->username',name='$user->name',last_name='$user->lastName',birth_date='$user->birthDate',bio='$user->bio',profile_pic='$user->profile',hasDog='$user->hasDog',dog_name='$user->dogName',dog_birth='$user->dogBirth',dog_breed='$user->dogBreed',img='$user->img' WHERE idusers=" . $user->id;
+        echo $sql;
+        $result = mysqli_query($conn, $sql);
+        $conn->close();
+    }
