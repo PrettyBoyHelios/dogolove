@@ -33,7 +33,7 @@ $otherProfile = getOtherProfiles($user);
             </div>
             <div class="col">
                 <a href="matches.php">
-                    <i class="fas fa-2x fa-heart" style="color: red; float: right;margin: 5px 5px 0 0"></i>
+                    <i class="fas fa-2x fa-heart" style="color: #C4828B; float: right;margin: 5px 5px 0 0"></i>
                 </a>
             </div>
         </div>
