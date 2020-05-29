@@ -76,8 +76,29 @@
 
     function getMatches($user){
         $conn = getDb();
-        $sql = "SELECT * FROM matches WHERE user_id = '$user->id' OR target_id = '$user->id' ORDER BY timestamp";
+        $sql = "SELECT * FROM matches WHERE (user_id = '$user->id' OR target_id = '$user->id') and match_approved = 1 ORDER BY timestamp";
         // fOR CONFIRMED MATCHES// "SELECT * FROM matches WHERE (user_id = 1 OR target_id = 1) AND match_approved = 1 ORDER BY timestamp"
         $result = mysqli_query($conn, $sql);
+        while($row = $result->fetch_assoc()) {
+            if ($row['user_id'] == $user->id){
+                $matchUser = getUserInfo($row['target_id']);
+            } else {
+                $matchUser = getUserInfo($row['user_id']);
+            }
+            $matchComponent = "
+            <div class=\"card\" style=\"width: 100%; border-radius: 20px;margin-top: 10px;\">
+                <div class=\"row\" style=\"margin-left: 5px;\">
+                    <img src=\"images/$matchUser->profile\" alt=\"...\" class=\"avatar\">
+                    <img src=\"images/$matchUser->img\" alt=\"...\" class=\"avatar\">
+                </div>
+                <div class=\"card-body\">
+                    <h5 class=\"card-title\">$matchUser->name & $matchUser->dogName want to meet you!</h5>
+                    <p class=\"card-text\">$matchUser->bio</p>
+                    <a type=\"button\" class=\"btn\" style=\"background-color: darkgreen\" href=\"https://wa.me/$matchUser->phone\"><i class=\"fab fa-whatsapp\"></i> Contact</a>
+                </div>
+            </div>
+            ";
+            echo $matchComponent;
+        }
         return $result->fetch_array(MYSQLI_NUM);
     }

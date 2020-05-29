@@ -1,7 +1,12 @@
 <?php
+    include ("db.php");
     session_start();
     if(!isset($_SESSION['userId'])){
         header("Location: index.php");
+    }
+    $user = getUserInfo($_SESSION['userId']);
+    if (!$user->hasDog) {
+        header("Location: pet_register.php");
     }
 ?>
 
@@ -33,17 +38,7 @@
     </div>
 
     <br/>
-    <div class="card" style="width: 100%; border-radius: 20px;">
-        <div class="row" style="margin-left: 5px;">
-            <img src="https://pm1.narvii.com/6599/feb27b001361baacef442e70f5e10769a387e7ed_00.jpg" alt="..." class="avatar">
-            <img src="https://occ-0-1068-92.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABZI-s_EPRYLfGYlu-ekFjbcqgyRyCbvOZJseXK0KqAjFrViOAOoyeD9AGAWVMv_LUqQGSwtvv6KWu5pE7st22o-MppBG7PRIOcS8_L-QHmCEKEuI.jpg?r=ef9" alt="..." class="avatar">
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Diane & Mr. Peanutbutter want to meet you!</h5>
-            <p class="card-text">Star of Mr peanutbutter's House and best buds with @BoJackHorseman</p>
-            <a type="button" class="btn" style="background-color: darkgreen" href="https://wa.me/524448568081"><i class="fab fa-whatsapp"></i> Contact</a>
-        </div>
-    </div>
+    <?php getMatches($user) ?>
 </div>
 
 
