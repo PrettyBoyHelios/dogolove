@@ -59,8 +59,7 @@
         $conn = getDb();
         $sql = "SELECT * FROM users WHERE idusers !=" . $user->id;
         $result = mysqli_query($conn, $sql);
-        $data = $result->fetch_array(MYSQLI_NUM);
-        return $data;
+        return $result->fetch_array(MYSQLI_NUM);
     }
 
     function getUserAge($user){
@@ -73,4 +72,11 @@
 // Formulate the Difference between two dates
         $diff = abs($d2-$d1);
         return floor($diff / (365*60*60*24));
+    }
+
+    function getMatches($user){
+        $conn = getDb();
+        $sql = "SELECT * FROM matches WHERE user_id = '$user->id' OR target_id = '$user->id' ORDER BY timestamp";
+        $result = mysqli_query($conn, $sql);
+        return $result->fetch_array(MYSQLI_NUM);
     }
