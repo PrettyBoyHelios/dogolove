@@ -1,7 +1,12 @@
 <?php
+    include ("db.php");
     session_start();
     if(!isset($_SESSION['userId'])){
         header("Location: index.php");
+    }
+    $user = getUserInfo($_SESSION['userId']);
+    if (!$user->hasDog) {
+        header("Location: pet_register.php");
     }
 ?>
 

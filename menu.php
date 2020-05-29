@@ -18,6 +18,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="logout.php">Log out</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="test.php">Testing</a>
+                                </li>
                             </ul>
                             <span class="navbar-text" style="color: #fff;">
                                 A man\'s best friend needs a best friend too!

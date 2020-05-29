@@ -2,6 +2,48 @@
     include("db.php");
     include("console.php");
 ?>
+
+<?php
+    if (isset($_POST['submitBtn'])) {
+        $conn = getDb();
+        if (!$conn) {
+            die("Connection failed:" . mysqli_connect_error());
+        }
+        $sql = "SELECT * FROM users WHERE user = '" . $_POST['userInput'] . "' AND password = '" . $_POST['passInput'] . "'";
+
+        $result = $conn->query($sql);
+        $conn->close();
+        if ($result && $result->num_rows == 1) {
+            session_start();
+            $row = mysqli_fetch_assoc($result);
+            print_r($row);
+            $_SESSION['userId'] = $row['idusers'];
+            $_SESSION['name'] = $row['name'];
+            $_SESSION['lastName'] = $row['last_name'];
+            header("Location: home.php");
+        } else {
+            debug_to_console("user not found!");
+            echo "User not found";
+        }
+
+        $query = mysqli_query($conn, "select * from users where Password='$pass' and Username='$user'");
+
+        $rows = mysqli_num_rows($query);
+        if($rows == 1){
+            $row = mysqli_fetch_assoc($query);
+            $_SESSION['user'] = $row['Id'];
+            $_SESSION['name'] = $row['FirstName'];
+            $_SESSION['isAdmin'] = $row['IsAdmin'];
+            $_SESSION['data'] = print_r($row, true);
+            header("Location: index.php"); // Redirecting to other page
+        }
+        else
+        {
+            echo 'not found!';
+            $err = "Username of Password is Invalid";
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,47 +109,7 @@
 </div><!-- end containerDiv -->
 <!-- php -->
 
-<?php
-    if (isset($_POST['submitBtn'])) {
-        $conn = getDb();
-        if (!$conn) {
-            die("Connection failed:" . mysqli_connect_error());
-        }
-        $sql = "SELECT * FROM users WHERE user = '" . $_POST['userInput'] . "' AND password = '" . $_POST['passInput'] . "'";
 
-        $result = $conn->query($sql);
-        $conn->close();
-        if ($result && $result->num_rows == 1) {
-            session_start();
-            $row = mysqli_fetch_assoc($result);
-            print_r($row);
-            $_SESSION['userId'] = $row['idusers'];
-            $_SESSION['name'] = $row['name'];
-            $_SESSION['lastName'] = $row['last_name'];
-            header("Location: home.php");
-        } else {
-            debug_to_console("user not found!");
-            echo "User not found";
-        }
-
-        $query = mysqli_query($conn, "select * from users where Password='$pass' and Username='$user'");
-
-        $rows = mysqli_num_rows($query);
-        if($rows == 1){
-            $row = mysqli_fetch_assoc($query);
-            $_SESSION['user'] = $row['Id'];
-            $_SESSION['name'] = $row['FirstName'];
-            $_SESSION['isAdmin'] = $row['IsAdmin'];
-            $_SESSION['data'] = print_r($row, true);
-            header("Location: index.php"); // Redirecting to other page
-        }
-        else
-        {
-            echo 'not found!';
-            $err = "Username of Password is Invalid";
-        }
-    }
-?>
 <!-- php final -->
 
 <!-- Preloader -->
