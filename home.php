@@ -8,6 +8,8 @@
     if (!$user->hasDog) {
         header("Location: pet_register.php");
     }
+    $otherProfile = getOtherProfiles($user);
+    echo $otherProfile->id . "name " . $otherProfile->lastName
 ?>
 
 <!DOCTYPE html>

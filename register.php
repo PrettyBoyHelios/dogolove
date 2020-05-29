@@ -115,7 +115,7 @@
         $file_name = uploadImage($profile['name'], $profile['size'], $profile['tmp_name']);
 
         if ($file_name != ""){
-            $sql = "INSERT INTO users(user, password, name, last_name, birth_date, bio, profile_pic, hasDog, dog_name, dog_birth, dog_breed, img) VALUES ('$username','$pass','$name','$lastName','1996-08-22','Demo for bio','$file_name',0,'','1996-08-22','Labrador','')";
+            $sql = "INSERT INTO users(user, password, name, last_name, birth_date, bio, profile_pic, hasDog, dog_name, dog_birth, dog_breed, img, phone) VALUES ('$username','$pass','$name','$lastName','1996-08-22','Demo for bio','$file_name',0,'','1996-08-22','Labrador','', '$phone')";
             $result = $conn->query($sql);
 
             debug_to_console($result);

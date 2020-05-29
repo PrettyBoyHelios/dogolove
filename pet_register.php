@@ -12,14 +12,17 @@
         $user = getUserInfo($_SESSION['userId']);
         $profile = $_FILES['profileInput'];
         $file_name = uploadImage($profile['name'], $profile['size'], $profile['tmp_name']);
+
         if ($file_name != ""){
             $user->hasDog=1;
             $user->dogName = $_POST['dog_name'];
             $user->dogBirth = $_POST['dog_birth'];
             $user->dogBreed = $_POST['dog_breed'];
             $user->img = $file_name;
+            updateUserInfo($user);
             header("Location: home.php");
         } else {
+            echo "error pet";
             header("Location: home.php");
         }
     }

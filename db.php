@@ -43,23 +43,25 @@
         $result = mysqli_query($conn, $sql);
         $conn->close();
         $data = $result->fetch_assoc();
-        //print_r($data);
         return new User($data);
     }
 
     function updateUserInfo($user){
         $conn = getDb();
         $sql = "UPDATE users SET user='$user->username',name='$user->name',last_name='$user->lastName',birth_date='$user->birthDate',bio='$user->bio',profile_pic='$user->profile',hasDog='$user->hasDog',dog_name='$user->dogName',dog_birth='$user->dogBirth',dog_breed='$user->dogBreed',img='$user->img' WHERE idusers=" . $user->id;
-        echo $sql;
         $result = mysqli_query($conn, $sql);
         $conn->close();
     }
 
     function getOtherProfiles($user){
         $conn = getDb();
-        $sql = "SELECT * FROM users WHERE idusers !=" . $user->id;
+        $sql = "SELECT * FROM users WHERE idusers !=" . $user->id . " and hasDog = 1";
+
         $result = mysqli_query($conn, $sql);
-        return $result->fetch_array(MYSQLI_NUM);
+        $data = $result->fetch_array(MYSQLI_ASSOC);
+        $randomUserIndex = array_rand($data);
+        print_r($data[$randomUserIndex]);
+        return new User($data[$randomUserIndex]);
     }
 
     function getUserAge($user){
